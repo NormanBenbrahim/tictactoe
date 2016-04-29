@@ -1,0 +1,23 @@
+body {
+    background-color: #ccffff;
+}
+
+.board {
+    height: 300px;
+    width: 300px;
+    background: url(http://img08.deviantart.net/b5aa/i/2015/140/7/c/chalkboard_by_lorelinde-d8u2phm.jpg) no-repeat center center fixed;
+    background-size: contain;
+    border: 2px solid grey;
+    border-radius: 2px;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+
+.square {
+    height: 50px;
+    width: 50px;
+}
