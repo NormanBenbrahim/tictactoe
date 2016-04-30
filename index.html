@@ -14,43 +14,51 @@
 <body>
 
 	<!-- container -->
-	<div class="container">
+	<div class="container-fluid">
 	    
 	    <!-- board text-center -->
-	    <div class="board text-center">
+	    <div class="board">
 
 	        <!-- make 9 board squares organized by rows -->
 	        <!-- we start count from the top left, giving id's in that order --> 
 	        
-	        <!-- row top-row -->
-	        <div class="row top-row">
-
-	            <div class="square" id="sq1"></div>
-	            <div class="square" id="sq2"></div>
-	            <div class="square" id="sq3"></div>
-
-	        </div>
-	        <!-- /row top-row -->
+	        <!-- all-squares -->
+	        <div class="all-squares">
 	        
-	        <!-- row middle-row -->
-	        <div class="row middle-row">
+	            <!-- row top-row -->
+	            <div class="row top-row container">
 
-	            <div class="square" id="sq4"></div>
-	            <div class="square" id="sq5"></div>
-	            <div class="square" id="sq6"></div>
+	                <div class="square" id="sq1"></div>
+	                <div class="square" id="sq2"></div>
+	                <div class="square" id="sq3"></div>
 
-	        </div>
-	        <!-- row middle-row -->
+	            </div>
+	            <!-- /row top-row -->
+
+	            <!-- row middle-row -->
+	            <div class="row middle-row container">
+
+	                <div class="square" id="sq4"></div>
+	                <div class="square" id="sq5"><span style="vertical-align: middle;">X</span></div>
+	                <div class="square" id="sq6"></div>
+
+	            </div>
+	            <!-- /row middle-row -->
+
+	            <!-- row bottom-row -->
+	            <div class="row bottom-row container">
+
+	                <div class="square" id="sq7"></div>
+	                <div class="square" id="sq8"></div>
+	                <div class="square" id="sq9"></div>
+
+	            </div>
+	            <!-- /row bottom-row -->            
 	        
-	        <!-- row bottom-row -->
-	        <div class="row bottom-row">
-
-	            <div class="square" id="sq7"></div>
-	            <div class="square" id="sq8"></div>
-	            <div class="square" id="sq9"></div>
-
 	        </div>
-	        <!-- /row bottom-row -->
+	        <!-- /all-squares -->
+	        
+	 
 
 	    </div>    
 	    <!-- /board text-center -->

@@ -3,21 +3,60 @@ body {
 }
 
 .board {
+    background: url(http://img08.deviantart.net/b5aa/i/2015/140/7/c/chalkboard_by_lorelinde-d8u2phm.jpg) no-repeat center;
+    background-size: cover;
     height: 300px;
     width: 300px;
-    background: url(http://img08.deviantart.net/b5aa/i/2015/140/7/c/chalkboard_by_lorelinde-d8u2phm.jpg) no-repeat center center fixed;
-    background-size: contain;
-    border: 2px solid grey;
-    border-radius: 2px;
+    border-radius: 3px;
+    box-shadow: 0px 5px 3px;
     position: absolute;
     top: 40px;
     left: 0;
     right: 0;
-
     margin: auto;
 }
 
 .square {
-    height: 50px;
-    width: 50px;
+    height: 80px;
+    width: 85px;
+    float: left;
+    text-align: center;
+    color: #ffffe6;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.all-squares {
+    margin-left: 20px; 
+    margin-top: 25px;
+}
+
+/* add borders to each square individually to get that board look*/
+#sq1 {
+    border-right: 2px solid #ffffe6;
+    border-bottom: 2px solid #ffffe6;
+}
+#sq2 {
+    border-bottom: 2px solid #ffffe6;
+    border-right: 2px solid #ffffe6;
+}
+#sq3 {
+    border-bottom: 2px solid #ffffe6;
+}
+#sq4 {
+    border-right: 2px solid #ffffe6;
+    border-bottom: 2px solid #ffffe6;
+}
+#sq5 {
+    border-bottom: 2px solid #ffffe6;
+    border-right: 2px solid #ffffe6;
+}
+#sq6 {
+    border-bottom: 2px solid #ffffe6;
+}
+#sq7 {
+    border-right: 2px solid #ffffe6;
+}
+#sq8 {
+    border-right: 2px solid #ffffe6;
 }
