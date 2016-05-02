@@ -2,6 +2,60 @@ body {
     background-color: #ccffff;
 }
 
+/*the text welcoming the user*/
+.welcome-text {
+    font-family: Verdana;
+}
+
+button {
+    font-size: 17px;
+    border: 1px solid gray;
+    background: #f2f2f2;
+    border-radius: 2px;
+}
+button:hover {
+    background: tomato;
+    border: 1px solid gray;
+}
+/*on top of the board*/
+.title {
+    margin-top: 5px;
+    text-align: center;
+    font-family: Monaco;
+}
+
+/*my usual signature*/
+.signature {
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+/*where a person chooses x's or o's*/
+.welcome-menu {
+    z-index: 10;
+    position: absolute;
+    background: white;
+    border: 2px solid black;
+    border-radius: 15px / 9px ;
+    width: 365px;
+    height: 320px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: none;
+}
+
+.show {
+    height: 200px;
+    transition: 0.9s;
+}
+
+.hide {
+    height: 0px;
+    transition: 0.3s;
+}
+
+/*the actual playing board*/
 .board {
     background: url(http://img08.deviantart.net/b5aa/i/2015/140/7/c/chalkboard_by_lorelinde-d8u2phm.jpg) no-repeat center;
     background-size: cover;
@@ -14,8 +68,10 @@ body {
     left: 0;
     right: 0;
     margin: auto;
+    z-index: 1;
 }
 
+/*each individual playing square where the x's and o's get traced*/
 .square {
     height: 80px;
     width: 85px;
@@ -24,14 +80,23 @@ body {
     color: #ffffe6;
     font-size: 40px;
     cursor: pointer;
+    font-family: Comic Sans MS, cursive;
 }
 
+.square:hover {
+    background: tomato;
+    opacity: 0.4;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+/*the wrapper for hte squares*/
 .all-squares {
     margin-left: 20px; 
     margin-top: 25px;
 }
 
-/* add borders to each square individually to get that board look*/
+/* add borders to each square individually to get that board effect*/
 #sq1 {
     border-right: 2px solid #ffffe6;
     border-bottom: 2px solid #ffffe6;
@@ -59,4 +124,10 @@ body {
 }
 #sq8 {
     border-right: 2px solid #ffffe6;
+}
+
+#go {
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #8080ff;
 }

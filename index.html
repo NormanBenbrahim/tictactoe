@@ -15,58 +15,79 @@
 </head>
 <body>
 
-	<!-- container -->
-	<div class="container-fluid">
-	    
-	    <!-- board text-center -->
-	    <div class="board">
+<!-- welcome-menu-->
+<div class="welcome-menu text-center" id="welcome-menu">
+    <span class="welcome-text"><h2>Welcome to tictactoe.js</h2><h4>Choose your weapon</h4></span>  
+    <button id="x">X</button><button id="o">O</button>
+    <span class="welcome-text"><h4>Choose your difficulty</h4></span>
+    <button id="e">Easy</button><button id="m">Medium</button><button id="h">Hard</button>
+    <span class="welcome-text"><h4>Who has the first move</h4></span>
+    <button id="you">You First</button><button id="me">Me First</button>
+    <br><button id="go">Go!</button>
+</div>
+<!-- /welcome-menu-->   
 
-	        <!-- make 9 board squares organized by rows -->
-	        <!-- we start count from the top left, giving id's in that order --> 
-	        
-	        <!-- all-squares -->
-	        <div class="all-squares">
-	        
-	            <!-- row top-row -->
-	            <div class="row top-row container">
+<!-- container -->
+<div class="container-fluid">
+    
 
-	                <div class="square" id="sq1"></div>
-	                <div class="square" id="sq2"></div>
-	                <div class="square" id="sq3"></div>
+    
+    <h3 class="title">tictactoe.js <span class="signature">by elefun</span></h3>
+    
 
-	            </div>
-	            <!-- /row top-row -->
+    
+    <!-- board text-center -->
+    <div class="board">
 
-	            <!-- row middle-row -->
-	            <div class="row middle-row container">
+        <!-- make 9 board squares organized by rows -->
+        <!-- we start count from the top left, giving id's in that order --> 
+        
+        <!-- all-squares -->
+        <div class="all-squares">
+        
+            <!-- row top-row -->
+            <div class="row top-row container">
 
-	                <div class="square" id="sq4"></div>
-	                <div class="square" id="sq5"><span style="vertical-align: middle;">X</span></div>
-	                <div class="square" id="sq6"></div>
+                <div class="square" id="sq1"></div>
+                <div class="square" id="sq2"></div>
+                <div class="square" id="sq3"></div>
 
-	            </div>
-	            <!-- /row middle-row -->
+            </div>
+            <!-- /row top-row -->
 
-	            <!-- row bottom-row -->
-	            <div class="row bottom-row container">
+            <!-- row middle-row -->
+            <div class="row middle-row container">
 
-	                <div class="square" id="sq7"></div>
-	                <div class="square" id="sq8"></div>
-	                <div class="square" id="sq9"></div>
+                <div class="square" id="sq4"></div>
+                <div class="square" id="sq5"></div>
+                <div class="square" id="sq6"></div>
 
-	            </div>
-	            <!-- /row bottom-row -->            
-	        
-	        </div>
-	        <!-- /all-squares -->
-	        
-	 
+            </div>
+            <!-- /row middle-row -->
 
-	    </div>    
-	    <!-- /board text-center -->
+            <!-- row bottom-row -->
+            <div class="row bottom-row container">
 
-	</div>
-	<!-- /container -->
+                <div class="square" id="sq7"></div>
+                <div class="square" id="sq8"></div>
+                <div class="square" id="sq9"></div>
 
+            </div>
+            <!-- /row bottom-row -->            
+        
+        </div>
+        <!-- /all-squares -->
+
+    </div>    
+    <!-- /board text-center -->
+    
+    <div class="score">
+    
+        <span id="userscore"></span><span id="computerscore"></span>
+        
+    </div>
+
+</div>
+<!-- /container -->
 </body>
 </html>
