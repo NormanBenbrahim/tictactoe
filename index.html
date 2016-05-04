@@ -15,79 +15,92 @@
 </head>
 <body>
 
-<!-- welcome-menu-->
-<div class="welcome-menu text-center" id="welcome-menu">
-    <span class="welcome-text"><h2>Welcome to tictactoe.js</h2><h4>Choose your weapon</h4></span>  
-    <button id="x">X</button><button id="o">O</button>
-    <span class="welcome-text"><h4>Choose your difficulty</h4></span>
-    <button id="e">Easy</button><button id="m">Medium</button><button id="h">Hard</button>
-    <span class="welcome-text"><h4>Who has the first move</h4></span>
-    <button id="you">You First</button><button id="me">Me First</button>
-    <br><button id="go">Go!</button>
-</div>
-<!-- /welcome-menu-->   
+	<!-- welcome-menu-->
+	<div class="welcome-menu text-center" id="welcome-menu">
+	    <span class="welcome-text"><h2>Welcome to tictactoe.js</h2><h4>Choose your weapon</h4></span>  
+	    <button id="X">X</button><button id="O">O</button>
+	    <span class="welcome-text"><h4>Choose your difficulty</h4></span>
+	    <button id="e">Easy</button><button id="h">Hard</button>
+	    <span class="welcome-text"><h4>Who has the first move</h4></span>
+	    <button id="you">You First</button><button id="me">Me First</button>
+	    <br><button id="go">Go!</button>
+	</div>
+	<!-- /welcome-menu-->   
 
-<!-- container -->
-<div class="container-fluid">
-    
+	<!-- container -->
+	<div class="container-fluid">
+	    
 
-    
-    <h3 class="title">tictactoe.js <span class="signature">by elefun</span></h3>
-    
+	    
+	    <h3 class="title">tictactoe.js <span class="signature">by elefun <img id="elephant"  src="https://cdn1.iconfinder.com/data/icons/animals-18/154/animal-elephant-body-skin-128.png"></span></h3>
+	    
 
-    
-    <!-- board text-center -->
-    <div class="board">
+	    
+	    <!-- board text-center -->
+	    <div class="board">
 
-        <!-- make 9 board squares organized by rows -->
-        <!-- we start count from the top left, giving id's in that order --> 
-        
-        <!-- all-squares -->
-        <div class="all-squares">
-        
-            <!-- row top-row -->
-            <div class="row top-row container">
+	        <!-- make 9 board squares organized by rows -->
+	        <!-- we start count from the top left, giving id's in that order --> 
+	        
+	        <!-- all-squares -->
+	        <div class="all-squares">
+	        
+	            <!-- row top-row -->
+	            <div class="row top-row container">
 
-                <div class="square" id="sq1"></div>
-                <div class="square" id="sq2"></div>
-                <div class="square" id="sq3"></div>
+	                <div class="square" id="sq6"></div>
+	                <div class="square" id="sq7"></div>
+	                <div class="square" id="sq8"></div>
 
-            </div>
-            <!-- /row top-row -->
+	            </div>
+	            <!-- /row top-row -->
 
-            <!-- row middle-row -->
-            <div class="row middle-row container">
+	            <!-- row middle-row -->
+	            <div class="row middle-row container">
 
-                <div class="square" id="sq4"></div>
-                <div class="square" id="sq5"></div>
-                <div class="square" id="sq6"></div>
+	                <div class="square" id="sq3"></div>
+	                <div class="square" id="sq4"></div>
+	                <div class="square" id="sq5"></div>
 
-            </div>
-            <!-- /row middle-row -->
+	            </div>
+	            <!-- /row middle-row -->
 
-            <!-- row bottom-row -->
-            <div class="row bottom-row container">
+	            <!-- row bottom-row -->
+	            <div class="row bottom-row container">
 
-                <div class="square" id="sq7"></div>
-                <div class="square" id="sq8"></div>
-                <div class="square" id="sq9"></div>
+	                <div class="square" id="sq0"></div>
+	                <div class="square" id="sq1"></div>
+	                <div class="square" id="sq2"></div>
 
-            </div>
-            <!-- /row bottom-row -->            
-        
-        </div>
-        <!-- /all-squares -->
+	            </div>
+	            <!-- /row bottom-row -->            
+	        
+	        </div>
+	        <!-- /all-squares -->
 
-    </div>    
-    <!-- /board text-center -->
-    
-    <div class="score">
-    
-        <span id="userscore"></span><span id="computerscore"></span>
-        
-    </div>
+	    </div>    
+	    <!-- /board text-center -->
+	    
+	    <div class="score">
+	    
+	        <span style="font-size: 24px; font-family: Verdana; text-decoration: underline;">Scoreboard</span><br>
+	        
+	        <table>
+	            <tr>
+	                <td>You &nbsp; &nbsp;</td>
+	                <td>Me</td>
+	            </tr>
+	            <tr>
+	                <td><span id="computerscore" class="scorecount">0</span></td>
+	                <td><span id="userscore" class="scorecount">0</span></td>
+	            </tr>
+	        </table>
+	       
+	        
+	    </div>
 
-</div>
-<!-- /container -->
+	</div>
+	<!-- /container -->
+
 </body>
 </html>

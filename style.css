@@ -29,6 +29,10 @@ button:hover {
     font-family: Verdana;
     font-size: 12px;
 }
+img {
+    width: 25px;
+    height: 25px;
+}
 
 /*where a person chooses x's or o's*/
 .welcome-menu {
@@ -62,7 +66,7 @@ button:hover {
     height: 300px;
     width: 300px;
     border-radius: 3px;
-    box-shadow: 0px 5px 3px;
+    box-shadow: 3px 5px 3px black;
     position: absolute;
     top: 40px;
     left: 0;
@@ -71,6 +75,31 @@ button:hover {
     z-index: 1;
 }
 
+/*the scoreboard*/
+.score {
+    position: fixed;
+    text-align: center;
+    height: 150px;
+    width: 220px;
+    background: url(http://img08.deviantart.net/b5aa/i/2015/140/7/c/chalkboard_by_lorelinde-d8u2phm.jpg) no-repeat center;
+    background-size: cover;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    color: #ffffe6;
+    border-radius: 7px;
+    box-shadow: 5px 5px 3px black;
+}
+table {
+    margin-left: 70px;
+    margin-top: 10px;
+    font-family: Verdana, Comic Sans MS;
+    font-size: 20px;
+}
+.scorecount {
+    font-family: Comic Sans MS;
+}
 /*each individual playing square where the x's and o's get traced*/
 .square {
     height: 80px;
@@ -97,34 +126,35 @@ button:hover {
 }
 
 /* add borders to each square individually to get that board effect*/
+#sq0 {
+    border-right: 2px solid #ffffe6;
+    border-top: 2px solid #ffffe6;
+}
 #sq1 {
     border-right: 2px solid #ffffe6;
-    border-bottom: 2px solid #ffffe6;
+    border-top: 2px solid #ffffe6;
 }
 #sq2 {
-    border-bottom: 2px solid #ffffe6;
-    border-right: 2px solid #ffffe6;
+    border-top: 2px solid #ffffe6;
 }
 #sq3 {
-    border-bottom: 2px solid #ffffe6;
+    border-right: 2px solid #ffffe6;
+    border-top: 2px solid #ffffe6;
 }
 #sq4 {
     border-right: 2px solid #ffffe6;
-    border-bottom: 2px solid #ffffe6;
+    border-top: 2px solid #ffffe6;
 }
 #sq5 {
-    border-bottom: 2px solid #ffffe6;
-    border-right: 2px solid #ffffe6;
+    border-top: 2px solid #ffffe6;
 }
 #sq6 {
-    border-bottom: 2px solid #ffffe6;
+    border-right: 2px solid #ffffe6;
 }
 #sq7 {
     border-right: 2px solid #ffffe6;
 }
-#sq8 {
-    border-right: 2px solid #ffffe6;
-}
+
 
 #go {
     margin-top: 10px;
