@@ -44,12 +44,7 @@ $(document).ready(function() {
             }
             hit3 = true;
         }
-        // if all variables are set, start the game
-        else {
-            if (weapon!==undefined && difficulty!==undefined && firstMove!==undefined) {
-                $(".welcome-menu").slideUp(700);
-            }
-        }
+
     });
 
 });
@@ -60,9 +55,9 @@ var board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 // function to check if there's a win on the board (3 straight X's or 3 straight O's)
 // 8 possible ways to win, counting from bottom left to top
 function isWin(bd, lt) {
-    var w1 = bd[0]===lt && bd[1]===lt && bd[2]===lt;//top row
+    var w1 = bd[0]===lt && bd[1]===lt && bd[2]===lt;//bottom row
     var w2 = bd[3]===lt && bd[4]===lt && bd[5]===lt;//mid row
-    var w3 = bd[6]===lt && bd[7]===lt && bd[8]===lt;//bottom row
+    var w3 = bd[6]===lt && bd[7]===lt && bd[8]===lt;//top row
     var w4 = bd[0]===lt && bd[3]===lt && bd[6]===lt;//left col
     var w5 = bd[1]===lt && bd[4]===lt && bd[7]===lt;//mid col
     var w6 = bd[2]===lt && bd[5]===lt && bd[8]===lt;//right col
@@ -70,6 +65,34 @@ function isWin(bd, lt) {
     var w8 = bd[0]===lt && bd[4]===lt && bd[8]===lt;//diag bottom to top
     // gather the possibilities
     return (w1||w2||w3||w4||w5||w6||w7||w8);
+}
+
+// function to show where the win is
+function whereIsWin(bd, lt) {
+    if (bd[0]===lt && bd[1]===lt && bd[2]===lt) {
+        return [0, 1, 2];
+    }
+    else if (bd[3]===lt && bd[4]===lt && bd[5]===lt) {
+        return [3, 4, 5];
+    }
+    else if (bd[6]===lt && bd[7]===lt && bd[8]===lt) {
+        return [6, 7, 8];
+    }
+    else if (bd[0]===lt && bd[3]===lt && bd[6]===lt) {
+        return [0, 3, 6];
+    }
+    else if (bd[1]===lt && bd[4]===lt && bd[7]===lt) {
+        return [1, 4, 7];
+    }
+    else if (bd[2]===lt && bd[5]===lt && bd[8]===lt) {
+        return [2, 5, 8];
+    }
+    else if (bd[2]===lt && bd[4]===lt && bd[6]===lt) {
+        return [2, 4, 6];
+    }
+    else {
+        return [0, 4, 8];
+    }
 }
 
 // function to check if the board is full => tie game
@@ -100,7 +123,7 @@ function checkTie() {
         $('#userscore, #computerscore').css('color', 'tomato');
     }
 }
-setInterval(checkTie, 1300);
+//setInterval(checkTie, 1300);
 
 // placing a move on the board
 function makeMove(brd, ltr, mv) {
@@ -130,6 +153,10 @@ function cpuPlay() {
         myWeapon = "X";
     }
     
+    // first we check for a tiw or win
+    checkTie();
+    checkWin();
+    
     //if difficulty is easy, just pick a random board piece that is avaialble
     if (difficulty==='e') {
         var options = [];
@@ -158,6 +185,7 @@ function cpuPlay() {
                 if (isWin(localBoard, myWeapon)) {
                     makeMove(board, myWeapon, i);
                     showMove(board, i);
+                    checkWin();
                     return;
                 }
             }
@@ -204,9 +232,16 @@ function cpuPlay() {
         
     }
     
+    // now check if there's a tie or win again
+    checkTie();
+    checkWin();
+    
 }
 
 function playerPlay() {
+    // first check for a tie or win
+    checkTie();
+    checkWin();
     // get the id from the square class that was pressed
     var id = this.id;
     var move = parseInt(id.slice(-1));
@@ -214,63 +249,110 @@ function playerPlay() {
     if (isFree(board, move)) {
         makeMove(board, playerWeapon, move);
         showMove(board, move);
-        // pass the turn to the cpu
-        cpuPlay();
+        
+    }
+    
+    // check if there's a tie or win again, with a tiny time window so the user sees what happened
+    checkTie();
+    checkWin();
+    
+    // pass the turn to the cpu
+    cpuPlay();
+}
+
+//function to reset the squares on the physical board
+function resetSquares() {
+    // reset the squares
+    for (var i = 0; i<board.length; i++) {
+        $('#sq' + i).html('');
     }
 }
 
 // function to check wins on a set interval to simulate a while loop
 function checkWin() {
     var count;
-    // the computer won
+    var indices;
+    
     if (playerWeapon==='X') {
         weapon = 'O';
     }
     else {
         weapon = 'X';
     }
+    // the computer won
     if (isWin(board, weapon)) {
+        // get the winning indices
+        indices = whereIsWin(board, weapon);
+        // highlight those specific squares
+        indices.reduce(function(prev, cur) {
+            $('#sq' + cur).css('color', 'tomato');
+        }, [])
+        
         // reset the board
         board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-        // reset the squares
-        for (var i = 0; i<board.length; i++) {
-            $('#sq' + i).html('');
-        }
-        // put numbers on the board
-        // get current count
-        count = parseInt($('#computerscore').html());
-        $('#computerscore').html(++count);
-        // clear highlighting from the user score and highlight computer score
-        $('#userscore, #computerscore').css('color', '#ffffe6');
-        $('#computerscore').css('color', 'tomato');
+        // reset the squares after a second
+        setTimeout(function() {
+            // reset the squares
+            for (var i = 0; i<board.length; i++) {
+                $('#sq' + i).html('');
+            }
+            // put numbers on the board
+            // get current count
+            count = parseInt($('#computerscore').html());
+            $('#computerscore').html(++count);
+            // clear highlighting from the user score and highlight computer score
+            $('#userscore, #computerscore').css('color', '#ffffe6');
+            $('#computerscore').css('color', 'tomato');
+            
+            // remove highlighting from winning squares
+            $('.square').css('color', '#ffffe6');
+        }, 1000);
+
     }
     // the player won
     else if (isWin(board, playerWeapon)) {
+        // get the winning indices
+        indices = whereIsWin(board, playerWeapon);
+        // highlight those specific squares
+        indices.reduce(function(prev, cur) {
+            $('#sq' + cur).css('color', 'tomato');
+        }, [])
+        
         // reset the board
         board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-        // reset the squares
-        for (var i = 0; i<board.length; i++) {
-            $('#sq' + i).html('');
-        }   
-        // put numbers on the board
-        // get current count
-        count = parseInt($('#userscore').html());
-        $('#userscore').html(++count);
-        // clear highlighting from the user score and highlight computer score
-        $('#userscore, #computerscore').css('color', '#ffffe6');
-        $('#userscore').css('color', 'tomato');
+        // reset the squares after a second
+        setTimeout(function() {
+            // reset the squares
+            for (var i = 0; i<board.length; i++) {
+                $('#sq' + i).html('');
+            }
+            // put numbers on the board
+            // get current count
+            count = parseInt($('#userscore').html());
+            $('#userscore').html(++count);
+            // clear highlighting from the user score and highlight computer score
+            $('#userscore, #computerscore').css('color', '#ffffe6');
+            $('#userscore').css('color', 'tomato'); 
+            
+            // remove highlighting from winning squares
+            $('.square').css('color', '#ffffe6');
+        }, 1000)
+
     }
 }
 
-setInterval(checkWin, 700);
+//setInterval(checkWin, 700);
 // every time a square is clicked
 $('.square').click(playerPlay);
 $('#go').click(function() {
-    if (firstMove) {
-        cpuPlay();
-    }
+    
+            if (firstMove) {
+                $(".welcome-menu").slideUp(700);
+                cpuPlay();
+        }
+        else {
+            $(".welcome-menu").slideUp(700);
+        }
+    
+
 })
-
-
-
-
