@@ -1,12 +1,12 @@
-// have a load page that slides down for the person to pick X or O
-// usually don't like using jQuery but slideDown is so much easier then writing from scratch
+// have a load page that slides down for the person to pick options
+// usually don't like using jQuery but slideDown is so much easier than writing from scratch
 var playerWeapon, difficulty, firstMove;
 var hit1 = false;
 var hit2 = false;
 var hit3 = false;
 $(document).ready(function() {
     // slide down the welcome menu and menu options
-    //$(".welcome-menu").slideDown(600);
+    $(".welcome-menu").slideDown(600);
     
     // 4 rows of buttons to click
     $('button').click(function() {     
@@ -34,10 +34,17 @@ $(document).ready(function() {
             if (hit3) {
                 $('#you, #me').css("background-color", "#f2f2f2");
             }
-            firstMove = true;
+            
             $(this).css("background-color", "tomato");
+            if (this.id==="me") {
+                firstMove = true;
+            }
+            else {
+                firstMove = false;
+            }
             hit3 = true;
         }
+        // if all variables are set, start the game
         else {
             if (weapon!==undefined && difficulty!==undefined && firstMove!==undefined) {
                 $(".welcome-menu").slideUp(700);
@@ -65,9 +72,39 @@ function isWin(bd, lt) {
     return (w1||w2||w3||w4||w5||w6||w7||w8);
 }
 
+// function to check if the board is full => tie game
+function isTie(board) {
+    // return false if there is a free piece on the board
+    for (var i = 0; i<board.length; i++) {
+        if (isFree(board, i)) {
+            return false;
+        }
+    }
+    // if all pieces are taken but someone won on the last move, don't count it as a tie
+    if (isWin(board)) {
+        return false;
+    }
+    return true;
+}
+
+// function to check that there is a tie, which will be set at an interval every 700ms
+function checkTie() {
+    if (isTie(board)) {
+        // reset the board
+        board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // reset the squares
+        for (var i = 0; i<board.length; i++) {
+            $('#sq' + i).html('');
+        }
+        // color both the userscore and computer score red
+        $('#userscore, #computerscore').css('color', 'tomato');
+    }
+}
+setInterval(checkTie, 1300);
+
 // placing a move on the board
-function makeMove(board, letter, move) {
-    board[move] = letter;
+function makeMove(brd, ltr, mv) {
+    brd[mv] = ltr;
 }
 
 // placing a move on the physical board
@@ -80,64 +117,94 @@ function isFree(board, move) {
     return board[move]===0;
 }
 
-// choose a random number from 1 to n (for easy difficulty)
-function chooseRandom(n) {
-    return Math.floor(n*Math.random() + 1); 
-}
-
-// initialize the CPU 
+// computer move 
 function cpuPlay() {
     // local variables
     var myWeapon; 
-    var localBoard = board.slice(); //copy current board
     
     // x's or o's
-    if (weapon==='X') {
+    if (playerWeapon==='X') {
         myWeapon = "O";
     }
     else {
         myWeapon = "X";
     }
     
-    //if difficulty is easy, just pick the first available place in the count
+    //if difficulty is easy, just pick a random board piece that is avaialble
     if (difficulty==='e') {
-        for (var i = 0; i<board.length; i++) {
+        var options = [];
+        for (var i = board.length; i>0; i--) {
             if (isFree(board, i)) {
-                makeMove(board, myWeapon, i);
-                showMove(board, i);
-                break;
+                options.push(i);
             }
         }
+        // now pick a random number from 0 to options.length for the index
+        var o = Math.floor((options.length)*Math.random());
+        var n = options[o];
+        makeMove(board, myWeapon, n);
+        showMove(board, n);
+        return;
     }
     // hard difficulty, a little more involved
     else {
-        var nextMove; //initialize the next move
-        
-        // first check if can win in the next move
+        var localBoard;
+        // first check if cpu can win in the next move
         for (var i = 0; i<board.length; i++) {
+            // create a copy of the board to write on to
+            localBoard = board.slice();
             if (isFree(localBoard, i)) {
                 // move on the local board and see if you won
-                makeMove(localBoard, myWeapon, i)
-                if isWin(localBoard, myWeapon) {
-                    nextMove = i;
+                makeMove(localBoard, myWeapon, i);
+                if (isWin(localBoard, myWeapon)) {
+                    makeMove(board, myWeapon, i);
+                    showMove(board, i);
+                    return;
                 }
             }
+        }       
+        // next check if the user can win on the next move and block them
+        for (var i = 0; i<board.length; i++) {
+            localBoard = board.slice();
+            if (isFree(localBoard, i)) {
+                makeMove(localBoard, playerWeapon, i);
+                if (isWin(localBoard, playerWeapon)) {
+                    makeMove(board, myWeapon, i);
+                    showMove(board, i);
+                    return;
+                }                
+            }
+        }       
+       
+        // the next best thing would be to take one of the corners
+        var corners = [0, 2, 6, 8];
+        var validCorners = [];
+        var move;
+        // check if any corners are available and append them to the valid ones
+        corners.reduce(function(prev, current){
+            if (isFree(board, current)) {
+                validCorners.push(current);
+            }
+        }, validCorners);
+        // pick a random one from the valid corners
+        var o = Math.floor((validCorners.length)*Math.random())
+        move = validCorners[o];
+        
+        if (move!==undefined) {
+            makeMove(board, myWeapon, move);
+            showMove(board, move);
+            return;           
         }
-
+        
+        //otherwise pick the center if it's free
+        if (isFree(board, 5)) {
+            makeMove(board, myWeapon, 5);
+            showMove(board, 5);
+            return;          
+        }
+        
     }
     
 }
-
-// to debug
-playerWeapon = 'O'; 
-difficulty = 'e';
-if (playerWeapon==='X') {
-    weapon = 'O';
-}
-else {
-    weapon = 'X';
-}
-
 
 function playerPlay() {
     // get the id from the square class that was pressed
@@ -145,7 +212,7 @@ function playerPlay() {
     var move = parseInt(id.slice(-1));
     // check if the board piece is free, if so, write to the board and physical board
     if (isFree(board, move)) {
-        makeMove(board, weapon, move);
+        makeMove(board, playerWeapon, move);
         showMove(board, move);
         // pass the turn to the cpu
         cpuPlay();
@@ -156,6 +223,12 @@ function playerPlay() {
 function checkWin() {
     var count;
     // the computer won
+    if (playerWeapon==='X') {
+        weapon = 'O';
+    }
+    else {
+        weapon = 'X';
+    }
     if (isWin(board, weapon)) {
         // reset the board
         board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -188,15 +261,16 @@ function checkWin() {
         $('#userscore').css('color', 'tomato');
     }
 }
-setInterval(checkWin, 700);
 
+setInterval(checkWin, 700);
 // every time a square is clicked
 $('.square').click(playerPlay);
+$('#go').click(function() {
+    if (firstMove) {
+        cpuPlay();
+    }
+})
 
-// if the first move is to the computer, run a cpuPlay first
-if (firstMove) {
-    cpuPlay();
-    firstMove = false; // to avoid multiple plays
-}
+
 
 
